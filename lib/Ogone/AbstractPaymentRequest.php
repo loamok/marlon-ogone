@@ -159,7 +159,7 @@ abstract class AbstractPaymentRequest extends AbstractRequest
         if (!is_int($amount)) {
             throw new InvalidArgumentException("Integer expected. Amount is always in cents");
         }
-        if ($amount <= 0) {
+        if ($amount < 0) { // optionally Ogone permit order with 0 amount to pre-register cards informations
             throw new InvalidArgumentException("Amount must be a positive number");
         }
         if ($amount >= 1.0E+15) {
