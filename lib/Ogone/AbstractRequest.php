@@ -180,7 +180,12 @@ abstract class AbstractRequest implements Request
     {
         foreach ($this->getRequiredFields() as $field) {
             if (empty($this->parameters[$field])) {
-                throw new RuntimeException("$field can not be empty");
+                /* ogone, recently, introduce the hability to send orders with amount value to 0 */
+                if($field == 'amount') {
+                    $this->parameters[$field] = 0;
+                } else {
+                    throw new RuntimeException("$field can not be empty");
+                }
             }
         }
     }
